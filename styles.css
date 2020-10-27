@@ -1,0 +1,16 @@
+.navbar-expand-lg {
+    background-color:#9146FF;
+    display: flex;
+    align-items: flex-end
+}
+
+.nav-link, .navbar-brand {
+    color:white
+}
+.rating {
+    position: relative;
+}
+
+.dropdown-item {
+    color: #9146FF
+}
