@@ -14,3 +14,7 @@
 .dropdown-item {
     color: #9146FF
 }
+
+.details-cover{
+    min-width: 25vw;
+}
