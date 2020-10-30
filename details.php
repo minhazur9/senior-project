@@ -11,8 +11,8 @@ $stmt = $pdo->prepare('SELECT * FROM games WHERE id = ?');
 <?=template_header('Read')?>
 
 <div class="content">
-    <h2><?=$game['Title']?></h2>
-    <img class="details-cover" src="<?=$game['Cover']?>" alt="cover">
+    <h2 class='game-title'><?=$game['title']?></h2>
+    <img class="details-cover" src="<?=$game['cover']?>" alt="cover">
 </div>
 
 <?=template_footer()?>
