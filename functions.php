@@ -1,14 +1,11 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 function pdo_connect_mysql()
 {
 
-    $servername = $_SERVER['SERVER_NAME'];
-    $username = $_SERVER['USERNAME'];
-    $password = $_SERVER['PASSWORD'];
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=gamedb", $username, $password);
         // set the PDO error mode to exception
