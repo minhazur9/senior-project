@@ -25,11 +25,11 @@ $num_games = $pdo->query('SELECT COUNT(*) FROM games')->fetchColumn();
         </thead>
         <tbody>
             <?php foreach ($games as $game) : ?>
-                <tr>
-                    <td><a href="details.php?id=<?= $game['id'] ?>"><img src="<?= $game['Cover'] ?>" alt="cover"></a></td>
-                    <td><a href="details.php?id=<?= $game['id'] ?>"><?= $game['Title'] ?></a></td>
+                <tr class="list-item">
+                    <td><a href="details.php?id=<?= $game['id'] ?>"><img class= "game-cover" src="<?= $game['cover'] ?>" alt="cover"></a></td>
+                    <td><a href="details.php?id=<?= $game['id'] ?>"><?= $game['title'] ?></a></td>
                     <td>
-                        <div class="platform-and-rating"><?= $game['Platforms'] ?><h2 class="rating"><?= $game['Rating'] ?></h2>
+                        <div class="platform-and-rating"><?= $game['platforms'] ?></h2>
                         </div>
                     </td>
                 </tr>

@@ -1,4 +1,6 @@
 .navbar-expand-lg {
+    position: fixed;
+    width: 100vw;
     background-color:#9146FF;
     display: flex;
     align-items: flex-end
@@ -15,6 +17,31 @@
     color: #9146FF
 }
 
-.details-cover{
+.details-cover {
     min-width: 25vw;
+}
+
+.game-cover {
+    max-width: 10vw;
+    min-width: 10vw;
+}
+
+.footer {
+    bottom: 0;
+    min-height: 5vh;
+    border: solid #9146FF 2px;
+    background-color: #9146FF;
+}
+
+.list-item {
+    position: relative;
+    border-bottom: #9146FF solid 2px; 
+}
+
+.CodeMirror {
+    visibility: hidden;
+}
+
+.welcome {
+  padding-top: 70px;
 }
