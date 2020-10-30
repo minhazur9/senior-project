@@ -3,9 +3,6 @@
 function pdo_connect_mysql()
 {
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=gamedb", $username, $password);
         // set the PDO error mode to exception
