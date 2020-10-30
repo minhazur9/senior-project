@@ -1,19 +1,15 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 function pdo_connect_mysql()
 {
 
-    $servername = $_SERVER['SERVER_NAME'];
-    $username = $_SERVER['USERNAME'];
-    $password = $_SERVER['PASSWORD'];
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
     try {
         $conn = new PDO("mysql:host=$servername;dbname=gamedb", $username, $password);
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
         return $conn;
     } catch (PDOException $e) {
         echo "Connection failed: " . $e->getMessage();
@@ -71,6 +67,7 @@ function template_footer()
 {
     echo <<<EOT
     </body>
+    <div class="footer"></div>
 </html>
 EOT;
 }

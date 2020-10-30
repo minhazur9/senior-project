@@ -5,10 +5,9 @@ $pdo = pdo_connect_mysql();
 // Get the page via GET request (URL param: page), if non exists default the page to 1
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 // Number of records to show on each page
-$records_per_page = 25;
-
-$stmt = $pdo->prepare('SELECT * FROM games ORDER BY id LIMIT :current_page, :record_per_page');
-$stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
+$records_per_page = 10;
+$stmt = $pdo->prepare('SELECT * FROM games ORDER BY ID LIMIT :current_page, :record_per_page');
+$stmt->bindValue(':current_page', ($page - 1) * $records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
 // Fetch the records so we can display them in our template.
@@ -17,44 +16,48 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $num_games = $pdo->query('SELECT COUNT(*) FROM games')->fetchColumn();
 ?>
 
-<?=template_header('Read')?>
+<?= template_header('Read') ?>
 
 <div class="game read">
-	<h2>All Games</h2>
-	<table>
+    <h2>All Games</h2>
+    <table>
         <thead>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
         </thead>
         <tbody>
-            <?php foreach ($games as $game): ?>
-            <tr>
-                <td><img src="<?=$game['Cover']?>" alt="cover"></td>
-                <td><?=$game['Title']?></td>
-                <td><div class="platform-and-rating"><?=$game['Platforms']?><h2 class="rating"><?=$game['Rating']?></h2></div></td>
-                <td></td>
-                <td class="actions">
-                    <a href="update.php?id=<?=$game['id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
-                    <a href="delete.php?id=<?=$game['id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
-                </td>
-            </tr>
+            <?php foreach ($games as $game) : ?>
+                <tr class="list-item">
+                    <td><a href="details.php?id=<?= $game['id'] ?>"><img class= "game-cover" src="<?= $game['cover'] ?>" alt="cover"></a></td>
+                    <td><a href="details.php?id=<?= $game['id'] ?>"><?= $game['title'] ?></a></td>
+                    <td>
+                        <div class="platform-and-rating"><?= $game['platforms'] ?></h2>
+                        </div>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-	<div class="pagination">
-		<?php if ($page > 1): ?>
-		<a href="list.php?page=<?=$page-1?>"><i class="fas fa-angle-double-left fa-sm"></i></a>
-		<?php endif; ?>
-		<?php if ($page*$records_per_page < $num_games): ?>
-		<a href="list.php?page=<?=$page+1?>"><i class="fas fa-angle-double-right fa-sm"></i></a>
-		<?php endif; ?>
-	</div>
+    <div class="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <?php if ($page > 1) : ?>
+                        <a class="page-link" href="list.php?page=<?= $page - 1 ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    <?php endif; ?>
+                </li>
+                <?php if ($page * $records_per_page < $num_games) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="list.php?page=<?= $page + 1 ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </div>
 </div>
 
-<?=template_footer()?>
+<?= template_footer() ?>
