@@ -22,8 +22,10 @@
 }
 
 .game-cover {
-    max-width: 10vw;
-    min-width: 10vw;
+    max-width: 20vw;
+    min-width: 20vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .footer {
@@ -49,4 +51,21 @@
 .content {
    padding-top: 70px;
    padding-bottom: 20px;
+}
+
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-center{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.gamebg {
+    background-color: lightblue;
 }
