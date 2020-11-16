@@ -7,7 +7,9 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 // Number of records to show on each page
 $records_per_page = 10;
 $platform = isset($_GET['platforms']) ? $_GET['platforms'] : "";
+$platformStr = isset($_GET['platforms']) ? "platforms={$platform}": "";
 $genre = isset($_GET['genre']) ? $_GET['genre'] : "";
+$genreStr = isset($_GET['genre']) ? "genre={$genre}" : "";
 $listTitle = "";
 $sort = 'games.id';
 if (isset($_GET['sort'])) {
@@ -29,28 +31,42 @@ if (isset($_GET['platforms'])) {
     INNER JOIN gamespot ON gamespot.title = amazon.title
     WHERE games.platforms LIKE '%{$platform}%' ORDER BY {$sort} LIMIT :current_page, :record_per_page");
     $listTitle = ucfirst($_GET['platforms']);
+
+    $size = $pdo->query("SELECT COUNT(games.title) 
+    FROM amazon 
+    INNER JOIN games ON games.title = amazon.title 
+    INNER JOIN gamespot ON gamespot.title 
+    WHERE games.platforms LIKE '%{$platform}%'")->fetchColumn();
 } else if (isset($_GET['genre'])) {
-    $stmt = $pdo->prepare("SELECT games.id,games.cover,games.title,games.platforms,amazon.price,amazon.link,gamespot.score,amazon.price_num,
+    $stmt = $pdo->prepare("SELECT games.id,games.cover,games.title,games.platforms,amazon.price,amazon.link,gamespot.score,amazon.price_num,games.genres
     FROM amazon
     INNER JOIN games ON games.title = amazon.title
     INNER JOIN gamespot ON gamespot.title = amazon.title 
     WHERE games.genres LIKE '%{$genre}%' ORDER BY {$sort} LIMIT :current_page, :record_per_page");
     $listTitle = ucfirst($_GET['genre']);
+
+    $size = $pdo->query("SELECT COUNT(games.title) FROM amazon 
+    INNER JOIN games ON games.title = amazon.title
+    INNER JOIN gamespot ON gamespot.title = amazon.title
+    WHERE games.genres LIKE '%{$genre}%'")->fetchColumn();
 } else {
     $stmt = $pdo->prepare(
-        "SELECT games.id,games.cover,games.title,games.platforms,amazon.price,amazon.link,gamespot.score,amazon.price_num 
-        FROM amazon
-        INNER JOIN games ON games.title = amazon.title
-        INNER JOIN gamespot ON gamespot.title = amazon.title 
-        ORDER BY {$sort} LIMIT :current_page, :record_per_page"
+    "SELECT games.id,games.cover,games.title,games.platforms,amazon.price,amazon.link,gamespot.score,amazon.price_num 
+    FROM amazon
+    INNER JOIN games ON games.title = amazon.title
+    INNER JOIN gamespot ON gamespot.title = amazon.title 
+    ORDER BY {$sort} LIMIT :current_page, :record_per_page");
     
-    );
+    $size = $pdo->query("SELECT COUNT(*) 
+    FROM amazon 
+    INNER JOIN games ON games.title = amazon.title 
+    INNER JOIN gamespot ON gamespot.title")->fetchColumn();
 }
 $stmt->bindValue(':current_page', ($page - 1) * $records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
 $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$num_games = $pdo->query('SELECT COUNT(*) FROM games')->fetchColumn();
+// $num_games = $pdo->query('SELECT COUNT(*) FROM games')->fetchColumn();
 ?>
 
 <?= template_header('List') ?>
@@ -64,10 +80,14 @@ $num_games = $pdo->query('SELECT COUNT(*) FROM games')->fetchColumn();
             <h2>All <?= $listTitle ?> Games</h2>
             <div class="sort-form">
                 <form action="" >
+                    <?php if(isset($_GET['platforms'])) :?>
                 <input type="hidden" name="platforms" value="<?php echo htmlspecialchars($_GET['platforms']);?>">
+                    <?php elseif(isset($_GET['genres'])) :?>
+                        <input type="hidden" name="platforms" value="<?php echo htmlspecialchars($_GET['genres']);?>">
+                    <?php endif ?>
                     <label for="sort">Sort By:</label>
                     <select onchange="this.form.submit()" name="sort" id="sort">
-                        <option value=""></option>
+                        <option value="">-------------</option>
                         <option value="a-z">Title</option>
                         <option value="rating-desc">Top Rated</option>
                         <option value="price-asc">Price - Lowest to Highest</option>
@@ -100,29 +120,15 @@ $num_games = $pdo->query('SELECT COUNT(*) FROM games')->fetchColumn();
             <ul class="pagination">
                 <li class="page-item">
                     <?php if ($page > 1) : ?>
-                        <?php if (isset($_GET['platform'])) : ?>
-                            <a class="page-link" 
-                            href="list.php?platform=<?= $platform ?>&sort=<?=$sort?>&page=<?= $page - 1 ?>" 
-                            aria-label="Previous">
-                            <?php elseif (isset($_GET['genre'])) : ?>
-                                <a class="page-link" href="list.php?genre=<?= $genre ?>&page=<?= $page - 1 ?>" aria-label="Previous">
-                                <?php else : ?>
-                                    <a class="page-link" href="list.php?page=<?= $page - 1 ?>" aria-label="Previous">
-                                    <?php endif; ?>
+                                    <a class="page-link" href="list.php?<?=$platformStr?><?=$genreStr?>&page=<?= $page - 1 ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                     </a>
                                 <?php endif; ?>
                 </li>
-                <?php if ($page * $records_per_page < $num_games) : ?>
+                <?php if ($page * $records_per_page < $size) : ?>
                     <li class="page-item">
-                        <?php if (isset($_GET['platform'])) : ?>
-                            <a class="page-link" href="list.php?platform=<?= $platform ?>&page=<?= $page + 1 ?>" aria-label="Next">
-                            <?php elseif (isset($_GET['genre'])) : ?>
-                                <a class="page-link" href="list.php?genre=<?= $genre ?>&page=<?= $page + 1 ?>" aria-label="Previous">
-                                <?php else : ?>
-                                    <a class="page-link" href="list.php?page=<?= $page + 1 ?>" aria-label="Next">
-                                    <?php endif; ?>
+                                    <a class="page-link" href="list.php?<?=$platformStr?><?=$genreStr?>&page=<?= $page + 1 ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                     </a>
