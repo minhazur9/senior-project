@@ -40,22 +40,26 @@ function template_header($title)
         <a class="nav-link" href="list.php">All Games<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Playtation</a>
+        <a class="nav-link" href="list.php?platforms=playstation">Playtation</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Xbox</a>
+        <a class="nav-link" href="list.php?platforms=xbox">Xbox</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Nintendo Switch</a>
+        <a class="nav-link" href="list.php?platforms=pc">PC</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Genres
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="list.php?genre=platform">Platformer</a>
+          <a class="dropdown-item" href="list.php?genre=adventure">Adventure</a>
+          <a class="dropdown-item" href="list.php?genre=shooter">First Person Shooter</a>
+          <a class="dropdown-item" href="list.php?genre=rpg">Role Playing Game (RPG)</a>
+          <a class="dropdown-item" href="list.php?genre=simulator">Simulator</a>
+          <a class="dropdown-item" href="list.php?genre=sport">Sport</a>
+          <a class="dropdown-item" href="list.php?genre=indie">Indie</a>
         </div>
       </li>
     </ul>

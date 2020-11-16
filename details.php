@@ -8,7 +8,7 @@ $stmt = $pdo->prepare('SELECT * FROM games WHERE id = ?');
     $game = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
-<?=template_header('Read')?>
+<?=template_header('Details')?>
 
 <div class="content gamebg">
     <h2 class='text-center'><?=$game['title']?></h2>

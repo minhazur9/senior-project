@@ -1,9 +1,15 @@
+
+body {
+    /* overflow-x: hidden; */
+}
+
 .navbar-expand-lg {
     position: fixed;
     width: 100vw;
     background-color:#9146FF;
     display: flex;
-    align-items: flex-end
+    align-items: flex-end;
+    z-index: 3;
 }
 
 .nav-link, .navbar-brand {
@@ -68,4 +74,33 @@
 
 .gamebg {
     background-color: lightblue;
+}
+
+.list-price {
+    position: relative;
+    left: 27vw;
+    bottom: 5vh;
+    font-size: 50px;
+    font-weight: lighter;
+}
+
+.amazon-link {
+    position: relative;
+    max-width: 30%;
+    left: 25vw;
+}
+
+.list-platform {
+    position: relative;
+    left: 15vw;
+}
+
+.sort-form {
+    position: relative;
+    left: 80vw;
+}
+
+.amazon-default {
+    position: relative;
+    left: 22vw;
 }
