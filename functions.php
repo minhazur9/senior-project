@@ -24,9 +24,13 @@ function template_header($title)
 		<meta charset="utf-8">
         <title>$title</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/cover/">
+        <link href="styles.css" rel="stylesheet" type="text/css">
         <link href="styles.css" rel="stylesheet" type="text/css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js" integrity="sha512-8qmis31OQi6hIRgvkht0s6mCOittjMa9GMqtK9hes5iEQBQE/Ca6yGE5FsW36vyipGoWQswBj/QBm2JR086Rkw==" crossorigin="anonymous"></script>
+        
 	</head>
 	<body>
     <nav class="navbar navbar-expand-lg">
@@ -71,7 +75,15 @@ function template_footer()
 {
     echo <<<EOT
     </body>
-    <div class="footer"></div>
+    <div class="footer">
+
+      <a href="https://www.amazon.com"><image class ='logo text-center' src = '/senior-project1/images/amazon.png'/></a>
+
+      <a href="https://www.gamespot.com"><image class = 'logo text-center' src = '/senior-project1/images/gamespot-logo.png'/></a>
+
+		<a href="https://www.igdb.com"><image class = 'logo text-center' src = '/senior-project1/images/IGDB.png' /></a>
+    
+    </div>
 </html>
 EOT;
-}
+} 
