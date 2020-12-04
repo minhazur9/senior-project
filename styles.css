@@ -1,6 +1,7 @@
 
 body {
     overflow-x: hidden;
+    background-color: lightblue;
 }
 
 
@@ -80,9 +81,6 @@ body {
     padding: 10px;
 }
 
-.gamebg {
-    background-color: lightblue;
-}
 
 .list-price {
     position: relative;
@@ -111,6 +109,10 @@ body {
 .amazon-default {
     position: relative;
     left: 22vw;
+}
+.game{
+
+    width: 60%;
 }
 
 
